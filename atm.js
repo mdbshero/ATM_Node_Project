@@ -16,8 +16,12 @@ function valPin (userPin){
         valPin();
     }
 }
-valPin()
 // get balance
+function getBalance (balance){
+    balance = account.balance;
+    return console.log(balance);
+};
+getBalance()
 
 //Withdrawal
 
