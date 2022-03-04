@@ -17,16 +17,18 @@ function valPin (userPin){
     }
 }
 // get balance
-function getBalance (balance){
-    balance = account.balance;
+function getBalance (){
+    let balance = account.balance;
     return balance;
 };
 //Withdrawal
-function userWithdrawal(withdrawal){
-    let userInput = prompt('How much would you like to withdraw from your account? ');
-    if (parseInt(userInput) <= account.balance){
+function userWithdrawal(){
+    let withdrawalAmount = prompt('How much would you like to withdraw from your account? ');
+    if (parseInt(withdrawalAmount) <= account.balance){
+        account.balance = account.balance - parseInt(withdrawalAmount);
+        console.log(`You have withdrawn $${withdrawalAmount}. Your current balance is $${account.balance}.`)
         return true;
-    } else if (parseInt(userInput) > account.balance) {
+    } else if (parseInt(withdrawalAmount) > account.balance) {
         console.log(`Insufficient funds. Current funds: $${account.balance}; Returning to main menu.`)
         return false
     } else {
@@ -35,10 +37,10 @@ function userWithdrawal(withdrawal){
     }
 }
 //Deposit
-function userDeposit(deposit){
-    let userInput = prompt('How much money would you like to deposit? ');
+function userDeposit(){
+    let deposit = prompt('How much money would you like to deposit? ');
 
-    account.balance = parseInt(userInput) + account.balance;
+    account.balance = parseInt(deposit) + account.balance;
     return account.balance;
 };
 
