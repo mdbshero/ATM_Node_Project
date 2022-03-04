@@ -3,9 +3,9 @@ const prompt = require('prompt-sync')();
 const atm = require('./atm');
 //User Welcome and PIN prompt.
 function userWelcome(){
-    let userPromptPin = atm.valPin(prompt("Welcome to Matthew's ATM. Please enter your 4 digit PIN: "));
+    let userPromptPin = atm.valPin();
     while (userPromptPin !== true){
-        userPromptPin = atm.valPin(prompt("Please enter your PIN: "));
+        userPromptPin = atm.valPin();
     }
     return true
 }
@@ -18,13 +18,13 @@ function atmMenu(){
         case "1":
             atm.getBalance();
             let bal = atm.getBalance();
-            console.log(`Your current balance is $${bal}`);
+            console.log(`Your current balance is $${bal}.00`);
             userInput = "";
             atmMenu();
             break;
         case "2":
             let userDeposit = atm.userDeposit();
-            console.log(`your current balance after the deposit is $${userDeposit}.`);
+            console.log(`Your current balance after the deposit is $${userDeposit}.00.`);
             userInput = "";
             atmMenu();
             break;
@@ -40,3 +40,13 @@ function atmMenu(){
             atmMenu();
     }
 }
+
+//run ATM Function
+function runATM(){
+    if (userWelcome() === true){
+        atmMenu();
+    }
+}
+
+// To run ATM please enter node index.js in the terminal.
+runATM();
