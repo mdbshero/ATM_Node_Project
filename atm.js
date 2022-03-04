@@ -3,17 +3,16 @@ const prompt = require('prompt-sync')();
 const account = require('./Account')
 //Validate Pin
 function valPin (userPin){
-    userPin = prompt('Please enter your four digit pin. ');
-    if ((userPin.length) == 4){
+    if (userPin.length == 4){
         if (userPin == account.pin){
             return true;
         } else {
             console.log('This is the incorrect user pin, please try again.');
-            valPin();
+            return false
         }
     } else {
         console.log('User input was not a pin, please try again.');
-        valPin();
+        return false
     }
 }
 // get balance
@@ -25,7 +24,7 @@ function getBalance (balance){
 function userWithdrawal(withdrawal){
     let userInput = prompt('How much would you like to withdraw from your account? ');
     if (parseInt(userInput) <= account.balance){
-        return console.log(true);
+        return true;
     } else if (parseInt(userInput) > account.balance) {
         console.log(`Insufficient funds. Current funds: $${account.balance}; Returning to main menu.`)
         return false
@@ -34,7 +33,6 @@ function userWithdrawal(withdrawal){
         return false
     }
 }
- userWithdrawal()
 //Deposit
 function userDeposit(deposit){
     let userInput = prompt('How much money would you like to deposit? ');
@@ -42,3 +40,10 @@ function userDeposit(deposit){
     deposit = parseInt(userInput) + account.balance;
     return deposit;
 };
+
+
+//module export
+module.exports.valPin = valPin;
+module.exports.getBalance = getBalance;
+module.exports.userWithdrawal = userWithdrawal;
+module.exports.userDeposit = userDeposit;
