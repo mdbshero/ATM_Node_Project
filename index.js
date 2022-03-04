@@ -1,17 +1,16 @@
 "use strict"
 const prompt = require('prompt-sync')();
 const atm = require('./atm');
-//run ATM
-
+//User Welcome and PIN prompt.
 function userWelcome(){
     let userPromptPin = atm.valPin(prompt("Welcome to Matthew's ATM. Please enter your 4 digit PIN: "));
-    if (userPromptPin === true){
-        console.log('PIN Accepted.');
-        return true;
-    } else {
-        console.log('PIN Incorrect.');
-        return false;
+    while (userPromptPin !== true){
+        userPromptPin = atm.valPin(prompt("Please enter your PIN: "));
     }
+    return true
 }
 
 console.log(userWelcome())
+//run atm
+//function runATM(){
+//}

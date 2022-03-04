@@ -3,6 +3,7 @@ const prompt = require('prompt-sync')();
 const account = require('./Account')
 //Validate Pin
 function valPin (userPin){
+    userPin = prompt("Welcome to Matthew's ATM. Please enter your 4 digit PIN: ");
     if (userPin.length == 4){
         if (userPin == account.pin){
             return true;
@@ -37,8 +38,8 @@ function userWithdrawal(withdrawal){
 function userDeposit(deposit){
     let userInput = prompt('How much money would you like to deposit? ');
 
-    deposit = parseInt(userInput) + account.balance;
-    return deposit;
+    account.balance = parseInt(userInput) + account.balance;
+    return account.balance;
 };
 
 
