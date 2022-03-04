@@ -19,10 +19,15 @@ function valPin (userPin){
 // get balance
 function getBalance (balance){
     balance = account.balance;
-    return console.log(balance);
+    return balance;
 };
-getBalance()
-
 //Withdrawal
 
+
 //Deposit
+function userDeposit(deposit){
+    let userInput = prompt('How much money would you like to deposit?');
+
+    deposit = parseInt(userInput) + account.balance;
+    return console.log(deposit)
+};
