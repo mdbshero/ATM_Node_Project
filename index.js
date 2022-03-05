@@ -1,8 +1,10 @@
 "use strict"
 const prompt = require('prompt-sync')();
 const atm = require('./atm');
+const wallet = require("./wallet");
 //User Welcome and PIN prompt.
 function userWelcome(){
+    console.log("Welcome to Matthew's ATM. Please enter your 4 digit PIN:");
     let userPromptPin = atm.valPin();
     while (userPromptPin !== true){
         userPromptPin = atm.valPin();
@@ -18,12 +20,16 @@ function atmMenu(){
         case "1":
             atm.getBalance();
             let bal = atm.getBalance();
-            console.log(`Your current balance is $${bal}.00`);
+            console.log(`Your current balance is $${bal}.00. Your current wallet balance is $${wallet.balance}.00.`);
             userInput = "";
             atmMenu();
             break;
         case "2":
             let userDeposit = atm.userDeposit();
+            if (userDeposit === false){
+                atmMenu();
+                break;
+            };
             console.log(`Your current balance after the deposit is $${userDeposit}.00.`);
             userInput = "";
             atmMenu();
@@ -48,5 +54,5 @@ function runATM(){
     }
 }
 
-// To run ATM please enter node index.js in the terminal.
+// To run ATM please enter node index.js in the terminal. initial wallet balance is $500.00
 runATM();

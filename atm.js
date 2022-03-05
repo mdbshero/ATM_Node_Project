@@ -1,19 +1,19 @@
 "use strict"
 const prompt = require('prompt-sync')();
 const account = require('./Account')
+const wallet = require("./wallet");
 //Validate Pin
 function valPin (){
-    console.log("Welcome to Matthew's ATM. Please enter your 4 digit PIN:")
     let userPin = prompt();
     if (userPin.length == 4){
         if (userPin == account.pin){
             return true;
         } else {
-            console.log('This is the incorrect user pin, please try again.');
+            console.log('This is the incorrect user PIN, please try again.');
             return false
         }
     } else {
-        console.log('User input was not a pin, please try again.');
+        console.log('User input was not a PIN, please try again.');
         return false
     }
 }
@@ -28,22 +28,31 @@ function userWithdrawal(){
     let withdrawalAmount = prompt();
     if (parseInt(withdrawalAmount) <= account.balance){
         account.balance = account.balance - parseInt(withdrawalAmount);
-        console.log(`You have withdrawn $${withdrawalAmount}.00. Your current balance is $${account.balance}.00.`)
+        wallet.balance = parseInt(withdrawalAmount) + wallet.balance;
+        console.log(`You have withdrawn $${withdrawalAmount}.00. Your current WALLET balance is $${wallet.balance}.00. Your current account balance is $${account.balance}.00.`);
         return true;
     } else if (parseInt(withdrawalAmount) > account.balance) {
-        console.log(`Insufficient funds. Current funds: $${account.balance}.00; Returning to main menu.`)
-        return false
+        console.log(`Insufficient funds. Current account funds: $${account.balance}.00; Returning to main menu.`);
+        return false;
     } else {
         console.log('Input Error. Returning to main menu.')
-        return false
+        return false;
     }
 }
 //Deposit
 function userDeposit(){
     console.log('How much money would you like to deposit?');
     let deposit = prompt();
-    account.balance = parseInt(deposit) + account.balance;
-    return account.balance;
+    if (parseInt(deposit) <= wallet.balance){
+        account.balance = parseInt(deposit) + account.balance;
+        wallet.balance = wallet.balance - parseInt(deposit);
+        return account.balance;
+    } else if (parseInt(deposit) > wallet.balance){
+        console.log(`Insufficient funds in WALLET. Current wallet funds: $${wallet.balance}.00. Returning to main menu.`);
+        return false;
+    } else {
+        return false;
+    }
 };
 
 

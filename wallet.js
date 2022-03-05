@@ -2,7 +2,7 @@
 
 //wallet object
 let wallet = {
-    balance:0
+    balance:500
 };
 
 //module export
