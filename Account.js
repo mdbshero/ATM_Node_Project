@@ -1,11 +1,11 @@
 "use strict"
 //user account includes current balance and pin
-const prompt = require('prompt-sync')();
+let wallet = require("./wallet");
 
 //User Data Object
 let user = {
     pin:1234,
-    balance:0
+    balance: wallet.balance
 };
 
 //module export
